@@ -18,10 +18,10 @@ export default function Recommended({todaysMood}: Props) {
           horizontal={true}
         >
           {!todaysMood && articles.map((article) => {
-            return <RecommendedCard imageSrc={article.imageTitle} title={article.title} url={article.articleLink}/>
+            return <RecommendedCard key={article.id} imageSrc={article.imageTitle} title={article.title} url={article.articleLink}/>
           })}
           {todaysMood && moodArticles.map((article) => {
-            return <RecommendedCard imageSrc={article.imageTitle} title={article.title} url={article.articleLink}/>
+            return <RecommendedCard key={article.id} imageSrc={article.imageTitle} title={article.title} url={article.articleLink}/>
           })}
         </ScrollView>
       </View>

@@ -14,7 +14,7 @@ import { todaysDate } from "../utils/todaysDate";
 
 interface loggedInUser {
   _id: String;
-  username: String;
+  username: string;
   email: String;
   date_of_birth: String;
   date_joined: String;
@@ -97,7 +97,7 @@ export default function MoodTrackingPage() {
     <View>
       <ScrollView contentContainerStyle={styles.page}>
         <View style={styles.chart}>
-          <Chart />
+          <Chart userMoods={userMoods}/>
         </View>
         <View style={styles.mood}>
           <Mood todaysMood={todaysMood} setShowModal={setShowModal} />

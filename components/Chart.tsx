@@ -1,8 +1,49 @@
 import { Text, View, StyleSheet } from "react-native";
 import { lightBlue, blue, orange, black, white } from "../assets/colours";
+import { WebView } from 'react-native-webview';
+import { useEffect } from "react";
+import { getUserMoods } from "../utils/api";
 
+interface Props {
+    userMoods: Array<Object>
+}
 
-export default function Chart() {
+export default function Chart({userMoods}: Props) {
+
+    const moodChart = 
+`<html>
+    <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        const data = google.visualization.DataTable();
+
+        const linearChart = new google.visualization.LineChart(document.getElementById('linear_div'));
+        linearChart.draw(data, linearOptions);
+
+        const logChart = new google.visualization.LineChart(document.getElementById('log_div'));
+        logChart.draw(data, logOptions);
+
+  };  
+  </script>
+    </head>
+    <body>
+    <table class="columns">
+        <tr>
+        <th>Linear Scale</th>
+        <th>Log Scale</th>
+        </tr>
+        <tr>
+        <td><div id="linear_div"></div></td>
+        <td><div id="log_div"></div></td>
+        </tr>
+    </table>
+    </body>
+    </html>`;
 
     const todaysDate: Date = new Date()
     const options: Object = {
@@ -16,7 +57,7 @@ export default function Chart() {
         <View style={styles.chartContainer}>
             <Text style={styles.date}>{formattedDate}</Text>
             <View style={styles.chart}>
-                <Text>Chart will go here</Text>
+                <WebView source={{html: (moodChart)}}></WebView>
             </View>
         </View>
     );
